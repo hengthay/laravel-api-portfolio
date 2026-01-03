@@ -4,7 +4,8 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Support\Facades\Request;
+// use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->encryptCookies(except: [
             'token',
         ]);
-        // Register the JWT middleware alias
+        // Register the JWT middleware alias, and all route must be authenticate with this alias name, in order to check-auth
         $middleware->alias([
             'jwt.cookie' => App\Http\Middleware\JwtCookieAuth::class,
         ]);
@@ -26,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (AuthenticationException $e, Request $request){ 
             if($request->is('api/*')) {
                 return response()->json([
-                    'message' => $e->getMessage()
+                    'message' => 'Unauthenticated or Token invalid'
                 ], 401);
             }
         });

@@ -14,14 +14,15 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:15
 Route::post('/logout', [AuthController::class, 'logout']);
 // Route::post('/guest', [AuthController::class, 'guestAccess'])->middleware('throttle:15,1');
 
-Route::middleware('auth:api')->get('/check-auth', function () {
+// The middleware name must be matching with alias name that we used in Kernel or boostrap/app.php file.
+Route::middleware('jwt.cookie')->get('/check-auth', function () {
     return response()->json([
         'ok' => true,
         // 'user' => Auth::user()
     ]);
 });
 
-Route::middleware(['auth:api'])->group(function() {
+Route::middleware(['jwt.cookie'])->group(function() {
     Route::controller(SkillsController::class)->prefix('skill')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
