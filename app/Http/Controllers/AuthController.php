@@ -43,7 +43,7 @@ class AuthController extends Controller
                     'user' => JWTAuth::user(),
                 ]
                 ])->cookie(
-                    'access_token', // cookie name
+                    'token', // cookie name
                     $token, 
                     60, // minutes expired
                     '/', 
@@ -69,7 +69,7 @@ class AuthController extends Controller
     {
         try {
             // Get the token from cookie
-            $token = $request->cookie('access_token');
+            $token = $request->cookie('token');
             // if token present 
             if($token) {
                 JWTAuth::setToken($token)->invalidate();
@@ -79,7 +79,7 @@ class AuthController extends Controller
                 'status' => 200,
                 'status_code' => 'success',
                 'message' => 'Logged out successfully'
-            ])->withoutCookie('access_token');
+            ])->withoutCookie('token');
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => 500,

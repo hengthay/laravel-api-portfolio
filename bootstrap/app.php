@@ -15,11 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: [
-            'access_token',
+            'token',
         ]);
         // Register the JWT middleware alias
         $middleware->alias([
-            'jwt.auth' => App\Http\Middleware\JwtCookieAuth::class,
+            'jwt.cookie' => App\Http\Middleware\JwtCookieAuth::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

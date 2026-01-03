@@ -14,14 +14,14 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:15
 Route::post('/logout', [AuthController::class, 'logout']);
 // Route::post('/guest', [AuthController::class, 'guestAccess'])->middleware('throttle:15,1');
 
-Route::middleware('jwt.auth')->get('/check-auth', function () {
+Route::middleware('auth:api')->get('/check-auth', function () {
     return response()->json([
         'ok' => true,
-        'user' => Auth::user()
+        // 'user' => Auth::user()
     ]);
 });
 
-Route::middleware('jwt.auth')->group(function() {
+Route::middleware(['auth:api'])->group(function() {
     Route::controller(SkillsController::class)->prefix('skill')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");

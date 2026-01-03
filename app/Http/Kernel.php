@@ -19,7 +19,7 @@ class Kernel extends HttpKernel
 
   protected $routeMiddleware = [
     // 'auth' => \App\Http\Middleware\Authenticate::class,
-    'jwt.auth' => \App\Http\Middleware\JwtCookieAuth::class,
+    'jwt.cookie' => \App\Http\Middleware\JwtCookieAuth::class,
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     // Add other route middleware as needed
   ];
