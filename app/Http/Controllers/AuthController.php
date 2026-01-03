@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -32,12 +34,13 @@ class AuthController extends Controller
                     'message' => 'Invalid credentials'
                 ], 401);
             }
+
             // Send back as JSON format
             return response()->json([
                 'status_code' => 'success',
                 'message' => 'Login successful',
                 'data' => [
-                    'user' => auth('api')->user(),
+                    'user' => JWTAuth::user(),
                 ]
                 ])->cookie(
                     'access_token', // cookie name
@@ -45,20 +48,20 @@ class AuthController extends Controller
                     60, // minutes expired
                     '/', 
                     null,
-                    true, // Secure (HTTPS)
+                    false, // In production change to true Secure (HTTPS)
                     true, // HttpOnly (prevents XSS stealing)
                     false, 
-                    'None' // Samesite
+                    'lax' // Samesite
                 );
         } catch (\Throwable $e) {
             return response()->json([
-                'status' => 404,
+                'status' => 500,
                 'status_code' => 'error',
                 'message' => 'Login failed',
                 'data' => [
                     'error' => $e->getMessage()
                 ]
-            ], 404);
+            ], 500);
         }
     }
 
@@ -85,9 +88,42 @@ class AuthController extends Controller
                 'data' => [
                     'error' => $e->getMessage()
                 ]
-            ], 404);
+            ], 500);
         }
     }
+
+    // public function refresh(Request $request) {
+    //     try {
+    //         $token = $request->hasCookie('access_token');
+
+    //         if(!$token) {
+    //             return response()->json([
+    //                 'status code' => 'error',
+    //                 'message' => 'Token not found!'
+    //             ], 401);
+    //         }
+
+    //         JWTAuth::setToken($token);
+    //         $newToken = JWTAuth::refresh();
+
+    //         return response()->json([
+    //             'status_code' => 'success',
+    //             'message' => 'Token refreshed successfully'
+    //         ])->cookie(
+    //             'access_token',
+    //             $newToken,
+    //             60,
+    //             '/',
+    //             null,
+    //             config('app.env') === 'production',
+    //             true,
+    //             false,
+    //             'None'
+    //         );
+    //     } catch (\Throwable $th) {
+    //         //throw $th;
+    //     }
+    // }
     // public function guestAccess() {
     //     $guestUser = User::where('name', 'guest')->first();
 

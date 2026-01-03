@@ -14,7 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->encryptCookies(except: [
+            'access_token',
+        ]);
+        // Register the JWT middleware alias
+        $middleware->alias([
+            'jwt.auth' => App\Http\Middleware\JwtCookieAuth::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (AuthenticationException $e, Request $request){ 
