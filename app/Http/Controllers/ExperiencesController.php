@@ -51,7 +51,7 @@ class ExperiencesController extends Controller
                 return $this->handleErrorResponse(null, 'Failed to create new experiences', 404);
             }
 
-            return $this->handleResponse($experiences, 'Experiences created successfully!', 200);
+            return $this->handleResponse($experiences, 'Experiences created successfully!', 201);
         } catch (\Throwable $e) {
             return $this->handleErrorResponse(null, $e->getMessage(), 500);
         }
