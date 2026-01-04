@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExperiencesController;
 use App\Http\Controllers\SkillsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,14 @@ Route::middleware('jwt.cookie')->get('/check-auth', function () {
 });
 
 Route::middleware(['jwt.cookie'])->group(function() {
-    Route::controller(SkillsController::class)->prefix('skill')->group(function() {
+    Route::controller(SkillsController::class)->prefix('skills')->group(function() {
+        Route::get('/', "index");
+        Route::get('/{id}', "show");
+        Route::post('/', "create");
+        Route::put('/{id}', "update");
+        Route::delete("/{id}", "delete");
+    });
+    Route::controller(ExperiencesController::class)->prefix('experiences')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
         Route::post('/', "create");
