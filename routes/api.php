@@ -4,13 +4,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperiencesController;
 use App\Http\Controllers\SkillsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 // public route
-Route::get('/user', [AuthController::class, 'index'])->middleware('jwt.auth');
+// Route::get('/user', [AuthController::class, 'index'])->middleware('jwt.auth');
 // throttle is used to limit a maximum request only 15 requests per 1 minute from the same client (IP / User)
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:15,1');
 Route::post('/logout', [AuthController::class, 'logout']);
@@ -40,6 +41,13 @@ Route::middleware(['jwt.cookie'])->group(function() {
         Route::delete("/{id}", "delete");
     });
     Route::controller(EducationController::class)->prefix('educations')->group(function() {
+        Route::get('/', "index");
+        Route::get('/{id}', "show");
+        Route::post('/', "create");
+        Route::put('/{id}', "update");
+        Route::delete("/{id}", "delete");
+    });
+    Route::controller(UserController::class)->prefix('users')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
         Route::post('/', "create");
