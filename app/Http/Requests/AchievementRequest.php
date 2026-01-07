@@ -24,7 +24,7 @@ class AchievementRequest extends FormRequest
         return [
             "title" => "required|string|max:255",
             "description" => "nullable|string",
-            "icon_url" => "nullable|url",
+            "icon_url" => "nullable|image|mimes:jpg,jpeg,png,svg|max:2048",
         ];
     }
 }

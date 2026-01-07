@@ -47,7 +47,7 @@ class ExperiencesController extends Controller
 
             Log::debug('Create new expericenes: ', ['experiences' => $experiences]);
 
-            if(!$experiences) {
+            if(!$experiences->exists) {
                 return $this->handleErrorResponse(null, 'Failed to create new experiences', 404);
             }
 

@@ -1,14 +1,12 @@
 <?php
 
+use App\Http\Controllers\AchievementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperiencesController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 // public route
 // Route::get('/user', [AuthController::class, 'index'])->middleware('jwt.auth');
@@ -48,6 +46,13 @@ Route::middleware(['jwt.cookie'])->group(function() {
         Route::delete("/{id}", "delete");
     });
     Route::controller(UserController::class)->prefix('users')->group(function() {
+        Route::get('/', "index");
+        Route::get('/{id}', "show");
+        Route::post('/', "create");
+        Route::put('/{id}', "update");
+        Route::delete("/{id}", "delete");
+    });
+    Route::controller(AchievementsController::class)->prefix('achievements')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
         Route::post('/', "create");
