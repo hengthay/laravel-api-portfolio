@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AchievementsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperiencesController;
 use App\Http\Controllers\SkillsController;
@@ -53,6 +54,13 @@ Route::middleware(['jwt.cookie'])->group(function() {
         Route::delete("/{id}", "delete");
     });
     Route::controller(AchievementsController::class)->prefix('achievements')->group(function() {
+        Route::get('/', "index");
+        Route::get('/{id}', "show");
+        Route::post('/', "create");
+        Route::put('/{id}', "update");
+        Route::delete("/{id}", "delete");
+    });
+    Route::controller(BlogsController::class)->prefix('blogs')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
         Route::post('/', "create");

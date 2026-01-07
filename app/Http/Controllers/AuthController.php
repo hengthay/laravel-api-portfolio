@@ -70,10 +70,17 @@ class AuthController extends Controller
         try {
             // Get the token from cookie
             $token = $request->cookie('token');
-            // if token present 
-            if($token) {
-                JWTAuth::setToken($token)->invalidate();
+            
+            // if token is not present 
+            if(!$token) {
+                return response()->json([
+                    'status' => 404,
+                    'status_code' => 'erorr',
+                    'message' => 'Token is not found'
+                ], 404);
             }
+            // Destroy token or remove
+            JWTAuth::setToken($token)->invalidate();
 
             return response()->json([
                 'status' => 200,
