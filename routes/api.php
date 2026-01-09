@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperiencesController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,13 @@ Route::middleware(['jwt.cookie'])->group(function() {
         Route::delete("/{id}", "delete");
     });
     Route::controller(BlogsController::class)->prefix('blogs')->group(function() {
+        Route::get('/', "index");
+        Route::get('/{id}', "show");
+        Route::post('/', "create");
+        Route::put('/{id}', "update");
+        Route::delete("/{id}", "delete");
+    });
+    Route::controller(ProfileController::class)->prefix('profiles')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");
         Route::post('/', "create");

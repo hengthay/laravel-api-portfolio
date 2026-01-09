@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProfileRequest extends FormRequest
 {
@@ -20,13 +21,15 @@ class ProfileRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {   
+        $id = $this->route('id');
+        
         return [
             "name" => "required|string|max:255",
-            "email" => "required|email|unique:profiles,email",
+            "email" =>  ["sometimes","email", Rule::unique('profiles','email')->ignore($id)],
             "bio" => "nullable|string",
-            "avatar_url" => "nullable|url",
-            "resume_url" => "nullable|url"
+            "avatar_url" => "nullable|image|mimes:jpg,jpeg,png,svg|max:2048",
+            "resume_url" => "nullable|file|mimes:pdf,doc,docx|max:5120"
         ];
     }
 }

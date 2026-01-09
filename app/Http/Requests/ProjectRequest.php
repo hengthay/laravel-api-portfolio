@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
         return [
             "title" => "required|string|max:255",
             "descrition" => "nullable|string",
-            "image_url" => "nullable|url",
+            "image_url" => "nullable|image|mimes:jpg,jpeg,png,svg|max:2048",
             "demo_url" => "nullable|url",
             "github_url" => "nullable|url",
             "technologies" => "required|array",
