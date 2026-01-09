@@ -26,7 +26,8 @@ Route::middleware('jwt.cookie')->get('/check-auth', function () {
     ]);
 });
 
-Route::middleware(['jwt.cookie'])->group(function() {
+// Only admin can be access to this route
+Route::middleware(['jwt.cookie', 'admin'])->group(function() {
     Route::controller(SkillsController::class)->prefix('skills')->group(function() {
         Route::get('/', "index");
         Route::get('/{id}', "show");

@@ -24,7 +24,9 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|unique:users,email,' . $this->route('id'),
-            'password' => 'sometimes|string'
+            'password' => 'sometimes|string',
+            'role' => 'nullable|string',
+            'permission' => 'nullable|string'
         ];
     }
 }

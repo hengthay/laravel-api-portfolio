@@ -62,10 +62,12 @@ class UserController extends Controller
             if (!$user) {
                 return $this->handleErrorResponse(null, 'User not found', 404);
             }
-
+            
             $user->update([
                 'name' => $request->name ?? $user->name,
                 'email' => $request->email ?? $user->email,
+                'role' => $request->role ?? $user->role,
+                'permission' => $request->permission ?? $user->permission
             ]);
 
             return $this->handleResponse($user, 'User updated successfully', 200);
