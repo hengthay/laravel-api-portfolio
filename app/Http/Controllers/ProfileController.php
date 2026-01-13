@@ -53,7 +53,9 @@ class ProfileController extends Controller
             $profiles = Profile::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'introduce' => $request->introduce,
                 'bio' => $request->bio,
+                'hobbies' => $request->hobbies,
                 'avatar_url' => $imageAvatar,
                 'resume_url' => $imageResume
             ]);          

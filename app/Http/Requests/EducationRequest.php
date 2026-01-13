@@ -24,9 +24,9 @@ class EducationRequest extends FormRequest
         return [
             "institution" => "required|string",
             "degree" => "required|string",
-            "field" => "required|string",
-            "start_date" => "required|date",
-            "end_date" => "required|date|after_or_equal:start_date"
+            "field" => "nullable|string",
+            "start_date" => "nullable|date",
+            "end_date" => "nullable|date|after_or_equal:start_date"
         ];
     }
 }

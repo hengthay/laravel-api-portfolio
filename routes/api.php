@@ -26,25 +26,49 @@ Route::middleware('jwt.cookie')->get('/check-auth', function () {
     ]);
 });
 
+// Public route
+Route::controller(SkillsController::class)->prefix('skills')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(ExperiencesController::class)->prefix('experiences')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(EducationController::class)->prefix('educations')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(AchievementsController::class)->prefix('achievements')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(BlogsController::class)->prefix('blogs')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(ProfileController::class)->prefix('profiles')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+Route::controller(ProjectsController::class)->prefix('projects')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
+
 // Only admin can be access to this route
 Route::middleware(['jwt.cookie', 'admin'])->group(function() {
     Route::controller(SkillsController::class)->prefix('skills')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
     Route::controller(ExperiencesController::class)->prefix('experiences')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
     Route::controller(EducationController::class)->prefix('educations')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
@@ -57,29 +81,21 @@ Route::middleware(['jwt.cookie', 'admin'])->group(function() {
         Route::delete("/{id}", "delete");
     });
     Route::controller(AchievementsController::class)->prefix('achievements')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
     Route::controller(BlogsController::class)->prefix('blogs')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
     Route::controller(ProfileController::class)->prefix('profiles')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
     Route::controller(ProjectsController::class)->prefix('projects')->group(function() {
-        Route::get('/', "index");
-        Route::get('/{id}', "show");
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");

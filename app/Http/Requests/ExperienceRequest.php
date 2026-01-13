@@ -24,9 +24,9 @@ class ExperienceRequest extends FormRequest
         return [
             "company" => "required|string",
             "position" => "required|string",
-            "description" => "required|string",
-            "start_date" => "required|date",
-            "end_date" => "required|date|after_or_equal:start_date"
+            "description" => "nullable|string",
+            "start_date" => "nullable|date",
+            "end_date" => "nullable|date|after_or_equal:start_date"
         ];
     }
 }
