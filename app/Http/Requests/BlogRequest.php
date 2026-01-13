@@ -32,9 +32,10 @@ class BlogRequest extends FormRequest
                 "string",
                 Rule::unique('blogs', 'slug')->ignore($id),
             ],
-            "cover_image" => "nullable|image",
+            "cover_image" => "nullable|image|max:2048",
             "published" => "boolean",
-            "tags" => "required|array"
+            "tags" => "required|array",
+            "join_date" => "nullable|date"
         ];
     }
 }

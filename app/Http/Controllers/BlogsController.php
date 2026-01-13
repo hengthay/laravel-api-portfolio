@@ -51,7 +51,8 @@ class BlogsController extends Controller
                 'slug' => $request->slug,
                 'cover_image' => $imagePath,
                 'published' => $request->published,
-                'tags' => $request->tags
+                'tags' => $request->tags,
+                'join_date' => $request->join_date
             ]);
 
             Log::debug('blogs', ['blogs' => $blogs]);

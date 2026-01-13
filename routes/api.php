@@ -3,6 +3,7 @@
 use App\Http\Controllers\AchievementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperiencesController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,10 @@ Route::controller(ProjectsController::class)->prefix('projects')->group(function
     Route::get('/', "index");
     Route::get('/{id}', "show");
 });
+Route::controller(CertificateController::class)->prefix('certificates')->group(function () {
+    Route::get('/', "index");
+    Route::get('/{id}', "show");
+});
 
 // Only admin can be access to this route
 Route::middleware(['jwt.cookie', 'admin'])->group(function() {
@@ -95,7 +100,7 @@ Route::middleware(['jwt.cookie', 'admin'])->group(function() {
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
     });
-    Route::controller(ProjectsController::class)->prefix('projects')->group(function() {
+    Route::controller(CertificateController::class)->prefix('certificates')->group(function() {
         Route::post('/', "create");
         Route::put('/{id}', "update");
         Route::delete("/{id}", "delete");
