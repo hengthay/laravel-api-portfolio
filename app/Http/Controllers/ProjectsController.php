@@ -48,6 +48,7 @@ class ProjectsController extends Controller
             $projects = Projects::create([
                 'title' => $request->title,
                 'description' => $request->description,
+                'category' => $request->category,
                 'image_url' => $imageUrl,
                 'demo_url' => $request->demo_url,
                 'github_url' => $request->github_url,

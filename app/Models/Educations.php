@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Educations extends Model
 {
-    protected $fillable = ['institution', 'degree', 'field', 'start_date', 'end_date'];
+    protected $fillable = ['institution', 'degree', 'field', 'status', 'start_date', 'end_date'];
 }

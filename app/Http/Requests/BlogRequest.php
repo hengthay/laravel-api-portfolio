@@ -32,7 +32,7 @@ class BlogRequest extends FormRequest
                 "string",
                 Rule::unique('blogs', 'slug')->ignore($id),
             ],
-            "cover_image" => "nullable|image|max:2048",
+            "cover_image" => "nullable|image|mimes:jpg,jpeg,png,svg|max:2048",
             "published" => "boolean",
             "tags" => "required|array",
             "join_date" => "nullable|date"
