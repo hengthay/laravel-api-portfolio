@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('permission')->nullable()->after('role');
 
             // ❌ REMOVE columns
-            $table->dropColumn('email_verified_at');
-            $table->dropColumn('remember_token');
+            // $table->dropColumn('email_verified_at');
+            // $table->dropColumn('remember_token');
         });
     }
 
@@ -30,8 +30,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role');
             $table->dropColumn('permission');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('remember_token')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->string('remember_token')->nullable();
         });
     }
 };
