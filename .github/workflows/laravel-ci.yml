@@ -30,19 +30,25 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with: 
-          php-version: "8.4"
+          php-version: "^8.3"
           extensions: mbstring, bcmath, pdo_mysql
           coverage: none
           
       - name: Install Composer dependencies (including dev)
         run: composer install --prefer-dist --no-progress --no-suggest
+      
+      - name: Copy .env.test to .env
+        run: cp .env.test .env
 
       - name: Prepare .env
         run: |
           cp .env.example .env
           php artisan key:generate
           php artisan config:clear
-
+      - name: Test PHPStan
+        run: composer phpstan
+      - name: Test PHPUnit
+        run: composer phpunit
       - name: Run migrations + tests
         env:
           APP_ENV: testing
@@ -52,6 +58,6 @@ jobs:
           DB_DATABASE: laravel_test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: |
-          php artisan migrate --force
-          php artisan test
+        run: php artisan migrate --force
+        
+   

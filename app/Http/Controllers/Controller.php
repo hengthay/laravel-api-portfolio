@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-
-use Symfony\Component\HttpFoundation\JsonResponse ;
+use Illuminate\Http\JsonResponse;
+// use Symfony\Component\HttpFoundation\JsonResponse ;
 
 abstract class Controller
 {
     /**
      * Standard API response method for success.
      *
-     * @param  mixed $result The data payload (e.g., model, collection, array).
+     * @param  mixed $data The data payload (e.g., model, collection, array).
      * @param  string $message A descriptive success message.
      * @param  int $code HTTP status code (default 200).
      * @return JsonResponse
      */
-    public function handleResponse(mixed $data = null, string $message, int $code = 200) : JsonResponse {
+    public function handleResponse(mixed $data = [], string $message = "", int $code = 200) : JsonResponse {
         $response = [
             'success' => true,
             'data' => $data,
@@ -28,12 +28,12 @@ abstract class Controller
     /**
      * Standard API response method for errors.
      *
-     * @param  string $error The main error message.
-     * @param  array $errorMessages Detailed error messages (optional).
+     * @param  string $message The main error message.
+     * @param  mixed $data the data payload.
      * @param  int $code HTTP status code (default 404).
      * @return JsonResponse
      */
-    public function handleErrorResponse(mixed $data = null, string $message, int $code = 400) : JsonResponse {
+    public function handleErrorResponse(mixed $data = [], string $message = "", int $code = 400) : JsonResponse {
         $response = [
             'success' => false,
             'data' => $data,
