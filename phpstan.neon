@@ -6,3 +6,7 @@ parameters:
     - app/
   level: 5
   treatPhpDocTypesAsCertain: false
+  ignoreErrors:
+    # If JWTAuth still complains, you can add specific ignores, but Larastan usually fixes it
+  excludePaths:
+    - ./*/_ide_helper.php
