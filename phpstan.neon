@@ -1,13 +1,13 @@
 includes:
-	- vendor/nunomaduro/larastan/extension.neon
+    - vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-  paths:
-    - app/
-  level: 5
-  treatPhpDocTypesAsCertain: false
-  ignoreErrors:
-    # If JWTAuth still complains, you can add specific ignores, but Larastan usually fixes it
-    - '#Static method Tymon\\JWTAuth\\Facades\\JWTAuth::[a-zA-Z0-9_]+\(\) not found.#'
-  excludePaths:
-    - ./*/_ide_helper.php
+    paths:
+        - app/
+    level: 5
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Call to an undefined static method Tymon\\JWTAuth\\Facades\\JWTAuth::[a-zA-Z0-9_]+\(\)\.#'
+    excludePaths:
+        - ./*/_ide_helper.php
