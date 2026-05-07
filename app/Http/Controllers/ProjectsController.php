@@ -81,7 +81,7 @@ class ProjectsController extends Controller
                     Storage::disk('public')->delete($projects->image_url);
                 }
 
-                // Store new image
+                // Store new images
                 $data['image_url'] = $request->file('image_url')->store('projects', 'public');
             }
             
