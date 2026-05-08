@@ -16,52 +16,52 @@ class SkillSeeder extends Seeder
         $skills = [
             [
                 "name" => "JavaScript",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 80,
             ],
             [
                 "name" => "HTML",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 95,
             ],
             [
                 "name" => "CSS",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 90,
             ],
             [
                 "name" => "React JS",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 85,
             ],
             [
                 "name" => "PHP",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 80,
             ],
             [
                 "name" => "Laravel",
-                "category" => "Frontend",
+                "category" => "Full-Stack Development",
                 "level" => 80,
             ],
             [
                 "name" => "Express JS",
-                "category" => "Frontend",
+                "category" => "Backend Development",
                 "level" => 75,
             ],
             [
                 "name" => "Tailwind CSS",
-                "category" => "Frontend",
+                "category" => "Frontend Development",
                 "level" => 90,
             ],
             [
                 "name" => "MySQL",
-                "category" => "Frontend",
+                "category" => "Database Management",
                 "level" => 80,
             ],
             [
                 "name" => "Postgres SQL",
-                "category" => "Frontend",
+                "category" => "Database Management",
                 "level" => 75,
             ],
         ];

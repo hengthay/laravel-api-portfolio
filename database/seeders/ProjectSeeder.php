@@ -114,6 +114,7 @@ class ProjectSeeder extends Seeder
                     "Express JS",
                     "Postgres SQL",
                     "Tailwind",
+                    "Redux Toolkit"
                 ],
             ],
         ];

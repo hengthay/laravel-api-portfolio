@@ -17,7 +17,7 @@ class EducationSeeder extends Seeder
         $educations = [
             [
                 "institution" => "Royal University of Law and Economic",
-                "degree" => "Bachelor Degree",
+                "degree" => "Bachelor",
                 "field" => "Information Technology",
                 "status" => "Studying",
                 "start_date" => Carbon::create(2023, 1, 1)
