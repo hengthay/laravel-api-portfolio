@@ -13,58 +13,50 @@ use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// public route
+
 // Route::get('/user', [AuthController::class, 'index'])->middleware('jwt.auth');
-// throttle is used to limit a maximum request only 15 requests per 1 minute from the same client (IP / User)
-Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:15,1');
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('/dashboard/stats', [DashboardController::class, 'stats']);
+// throttle is used to limit a maximum request only 10 requests per 1 minute from the same client (IP / User)
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('throttle:20,1');
 // Route::post('/guest', [AuthController::class, 'guestAccess'])->middleware('throttle:15,1');
 
 // The middleware name must be matching with alias name that we used in Kernel or boostrap/app.php file.
-Route::middleware('jwt.cookie')->get('/check-auth', function () {
+Route::middleware(['jwt.cookie', 'throttle:120,1'])->get('/check-auth', function () {
     return response()->json([
         'ok' => true,
         // 'user' => Auth::user()
     ]);
 });
 
+Route::get('/dashboard/stats', [DashboardController::class, 'stats'])->middleware('throttle:30,1');
+
 // Public route
-Route::controller(SkillsController::class)->prefix('skills')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(ExperiencesController::class)->prefix('experiences')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(EducationController::class)->prefix('educations')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(AchievementsController::class)->prefix('achievements')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(BlogsController::class)->prefix('blogs')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(ProfileController::class)->prefix('profiles')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(ProjectsController::class)->prefix('projects')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
-});
-Route::controller(CertificateController::class)->prefix('certificates')->group(function () {
-    Route::get('/', "index");
-    Route::get('/{id}', "show");
+// Limit only 80 requests per minutes to ensure performance
+Route::middleware('throttle:80,1')->group(function() {
+
+    // Grouping all public GET routes
+    $publicControllers = [
+        'skills' => SkillsController::class,
+        'experiences' => ExperiencesController::class,
+        'educations' => EducationController::class,
+        'achievements' => AchievementsController::class,
+        'blogs' => BlogsController::class,
+        'profiles' => ProfileController::class,
+        'projects' => ProjectsController::class,
+        'certificates' => CertificateController::class,
+    ];
+
+    foreach($publicControllers as $prefix => $controller) {
+        Route::controller($controller)->prefix($prefix)->group(function () {
+            Route::get('/', "index");
+            Route::get('/{id}', "show");
+        });
+    }
 });
 
 // Only admin can be access to this route
-Route::middleware(['jwt.cookie', 'admin'])->group(function() {
+// Limit only 30 requests per minutes
+Route::middleware(['jwt.cookie', 'admin', 'throttle:30,1'])->group(function() {
     Route::controller(SkillsController::class)->prefix('skills')->group(function() {
         Route::post('/', "create");
         Route::put('/{id}', "update");
