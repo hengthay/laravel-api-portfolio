@@ -34,6 +34,9 @@ class AuthController extends Controller
                     'message' => 'Invalid credentials'
                 ], 401);
             }
+            
+            // Check if production
+            $isProduction = config('app.env') === 'production';
 
             // Send back as JSON format
             return response()->json([
@@ -48,10 +51,10 @@ class AuthController extends Controller
                     60, // minutes expired
                     '/', 
                     null,
-                    false, // In production change to true Secure (HTTPS)
+                    $isProduction, // In production change to true Secure (HTTPS)
                     true, // HttpOnly (prevents XSS stealing)
                     false, 
-                    'lax' // Samesite
+                    $isProduction ? 'none' : 'lax' // Samesite
                 );
         } catch (\Throwable $e) {
             return response()->json([
