@@ -28,15 +28,14 @@ class AuthController extends Controller
             ]);
             // Check if name + password match a user
             // If yes generate token, otherwise return false
-            if(!$token = JWTAuth::attempt($credentials)) {
+            $token = JWTAuth::attempt($credentials);
+
+            if(!$token) {
                 return response()->json([
                     'status_code' => 'error',
                     'message' => 'Invalid credentials'
                 ], 401);
             }
-            
-            // Check if production
-            $isProduction = config('app.env') === 'production';
 
             // Send back as JSON format
             return response()->json([
@@ -44,18 +43,10 @@ class AuthController extends Controller
                 'message' => 'Login successful',
                 'data' => [
                     'user' => JWTAuth::user(),
+                    'token' => $token,
+                    'token_type' => "bearer",
                 ]
-                ])->cookie(
-                    'token', // cookie name
-                    $token, 
-                    60, // minutes expired
-                    '/', 
-                    null,
-                    $isProduction, // In production change to true Secure (HTTPS)
-                    true, // HttpOnly (prevents XSS stealing)
-                    false, 
-                    $isProduction ? 'none' : 'lax' // Samesite
-                );
+                ]);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => 500,
@@ -71,25 +62,17 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         try {
-            // Get the token from cookie
-            $token = $request->cookie('token');
-            
-            // if token is not present 
-            if(!$token) {
-                return response()->json([
-                    'status' => 404,
-                    'status_code' => 'erorr',
-                    'message' => 'Token is not found'
-                ], 404);
-            }
+            // Get the token from Authorization Header and validate
+            JWTAuth::parseToken()->authenticate();
+
             // Destroy token or remove
-            JWTAuth::setToken($token)->invalidate();
+            JWTAuth::invalidate(JWTAuth::getToken());
 
             return response()->json([
                 'status' => 200,
                 'status_code' => 'success',
                 'message' => 'Logged out successfully'
-            ])->withoutCookie('token');
+            ]);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => 500,

@@ -54,18 +54,20 @@ class ProjectSeeder extends Seeder
             ],
             [
                 "title" => "My Portfolio Website v3",
-                "description" => "This is my favourite portfolio website amongs my previous portfolio, because I have built it with a lot of time and this is a scalable website that all the datas will come from my backend Laravel.",
+                "description" => "Developed a scalable full-stack portfolio showcase web application using React.js and Laravel, featuring dynamic content management through RESTful APIs, responsive UI design, and centralized backend-driven data architecture.",
                 "category" => "Full-Stack",
                 "image_url" => "projects/v3.png",
-                "github_url" => "https://hengthay.github.io/portfolio_hengthay/",
+                "demo_url" => "https://laov-kimhengthay.vercel.app/",
                 "technologies" => [
                     "React JS",
-                    "Tailwind",
+                    "Tailwind CSS",
                     "Laravel",
                     "MySQL",
                     "Motion Framer",
                     "Redux Toolkit",
                     "Axios",
+                    "Git & Github",
+                    "JWT Authentication"
                 ],
             ],
             [
@@ -76,7 +78,7 @@ class ProjectSeeder extends Seeder
                 "github_url" => "https://hengthay.github.io/leslasvpnclone/",
                 "technologies" => [
                     "React JS",
-                    "Tailwind",
+                    "Tailwind CSS",
                 ],
             ],
             [
@@ -87,7 +89,7 @@ class ProjectSeeder extends Seeder
                 "github_url" => "https://hengthay.github.io/redux-todo-app-and-react/",
                 "technologies" => [
                     "React JS",
-                    "Tailwind",
+                    "Tailwind CSS",
                     "Redux Toolkit",
                 ],
             ],
@@ -99,7 +101,7 @@ class ProjectSeeder extends Seeder
                 "github_url" => "https://hengthay.github.io/assembly_game/",
                 "technologies" => [
                     "React JS",
-                    "Tailwind",
+                    "Tailwind CSS",
                 ],
             ],
             [
@@ -107,14 +109,34 @@ class ProjectSeeder extends Seeder
                 "description" => "This project is an e-commerce website that allows users to browse products, add them to a cart, and make secure online purchases. It includes user registration, order tracking, and an admin panel to manage products and orders. The website is responsive, user-friendly, and designed to provide a smooth online shopping experience.",
                 "category" => "Full-Stack",
                 "image_url" => "projects/5.png",
-                "github_url" => "https://hengthay.github.io/assembly_game/",
                 "technologies" => [
                     "React JS",
                     "Node JS",
                     "Express JS",
                     "Postgres SQL",
-                    "Tailwind",
-                    "Redux Toolkit"
+                    "Tailwind CSS",
+                    "Redux Toolkit",
+                    "JWT Authentication",
+                    "Git & Github",
+                    "RESTful API",
+                    "Axios"
+                ],
+            ],
+            [
+                "title" => "Job Board Seeker",
+                "description" => "I developed a full-stack Job Board Seeker (KhmerJob) web application that connects job seekers with employers through an interactive and user-friendly recruitment platform. The system allows users to search and apply for jobs, while employers can post job listings, manage applications, and track candidates efficiently.",
+                "category" => "Full-Stack",
+                "image_url" => "projects/5.png",
+                "technologies" => [
+                    "Laravel",
+                    "MySQL",
+                    "Redux Toolkit",
+                    "RESTful API",
+                    "JWT Authentication",
+                    "Git & GitHub",
+                    "React JS",
+                    "Axios",
+                    "Tailwind CSS"
                 ],
             ],
         ];

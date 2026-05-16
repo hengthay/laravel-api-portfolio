@@ -64,6 +64,21 @@ class SkillSeeder extends Seeder
                 "category" => "Database Management",
                 "level" => 75,
             ],
+            [
+                "name" => "Docker",
+                "category" => "DevOps & Tools",
+                "level" => 75
+            ],
+            [
+                "name" => "Oracel",
+                "category" => "Database Management",
+                "level" => 75
+            ],
+            [
+                "name" => "Git & Github",
+                "category" => "DevOps & Tools",
+                "level" => 80
+            ],
         ];
 
         foreach($skills as $key => $value) {
