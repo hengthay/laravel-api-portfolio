@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JwtCookieAuth
@@ -14,10 +15,11 @@ class JwtCookieAuth
             // $token = $request->cookie('token');
             $user = JWTAuth::parseToken()->authenticate();
 
-            if (!$user) {
+            // instanceof check narrows type for PHPStan
+            if (!$user instanceof \Illuminate\Contracts\Auth\Authenticatable) {
                 return response()->json([
                     'status_code' => 'error',
-                    'message' => 'User not found',
+                    'message'     => 'User not found'
                 ], 401);
             }
 
@@ -34,9 +36,12 @@ class JwtCookieAuth
                 'status_code' => 'error',
                 'message'     => 'Token invalid'
             ], 401);
-        }catch (\Exception $e) {
-            // Debugging: temporarily return $e->getMessage() to see the real error
-            return response()->json(['error' => 'Unauthorized: ' . $e->getMessage()], 401);
+        } catch (JWTException $e) {
+            // Covers missing/malformed Authorization header
+            return response()->json([
+                'status_code' => 'error',
+                'message'     => 'Token absent'
+            ], 401);
         }
 
         return $next($request);
